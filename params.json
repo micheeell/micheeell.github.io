@@ -1,0 +1,6 @@
+{
+  "name": "Just starting",
+  "tagline": "My Personal Website on github",
+  "body": "### Welcome to My Personal Page on GitHub\r\nI'm just actually looking around. Playing a bit.\r\n* * *\r\nThis shall **not** be the final form of my page.\r\n> Stay tuned.\r\n![My Unicorn](https://github.com/unicorn.png)\r\n\r\n### Coming Soon\r\n* More [[about me|about.html]]\r\n* Spanish/French __translation__\r\n* External Links like [this one](http://motherfuckingwebsite.com)\r\n* Linux Tricks and `code snippets`.\r\n* and some other things I liked on the web, professionally speaking.\r\n   mysql> SELECT * FROM my_database WHERE name LIKE 'minion' LIMIT 10;\r\n\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
