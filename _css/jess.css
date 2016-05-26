@@ -97,8 +97,12 @@
   text-align: center;
 }
 
-.top-menu > ul {
+.top-menu > ul,
+.bottom-menu > ul {
   margin: 0;
+}
+
+.bottom-menu > ul {
   padding: 6px;
 }
 
@@ -108,7 +112,7 @@
   display: inline-block;
   margin: 0;
   padding-left: 12px;
-  line:height: 17px;
+  line-height: 17px;
 }
 
 .top-menu > ul > li > a,
