@@ -2,19 +2,18 @@ var lightbox_close_btn, lightbox_random, lightbox_setContent, lightbox_open, lig
 $(document).ready(function() {
     lightbox_close_btn = '<a href="javascript:void(0);" onclick="lightbox_close();" class="lb_close">Close</a>';
     lightbox_random = function() {
-        var article = 'bouillabaisse';
+        var article;
         var articles = $(".article");
         if (articles.length) {
             var randomIndex = Math.floor(Math.random() * articles.length);
             article = $(articles[randomIndex]).find('a:first').attr('name');
+        } else {
+            return;
         }
-        //console.log('lightbox: '+article);
         lightbox_setContent(article);
         lightbox_open();
-        //console.log('done - article: '+article);
     };
     lightbox_setContent = function(anchor) {
-        console.log('setContent - article: '+anchor);
         var lightbox_content = $('#lb_content');
         lightbox_content.empty();
         var article = $("a[name='"+anchor+"']").parent().parent();
