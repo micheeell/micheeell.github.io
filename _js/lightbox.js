@@ -33,7 +33,7 @@ $(document).ready(function() {
     };
     lightbox_close = function() {
         $('#lb_content').hide();
-        $('#lb_content').hide();
+        $('#lb_overlay').hide();
     };
     $('.top-menu li a').click(function(e) {
         e.preventDefault();
