@@ -1,0 +1,50 @@
+.term-container, div.term, .mysql-container, .code {
+    width: 75%;
+    margin-bottom: 8px;
+    font-family: courier, monospace;
+    padding: 4pt;
+    word-wrap: break-word;
+    background-color: #F3F3F3;
+    border: 1px dashed #C1B496;
+}
+.term, .code {
+    line-height: 16px;
+}
+.code {
+    border: 1px solid #313131;
+    display: block;
+}
+hr.separator {
+    visibility: hidden;
+}
+.mysql-cmd {
+    font-weight: 900;
+}
+.mysql-container, .code {
+    background-color: #7a7a7a;
+    color: #ededed;
+}
+.term::before {
+    content: "$ ";
+}
+.term.sudo::before {
+    content: "# ";
+}
+.mysql-cmd::before {
+    content: "mysql> ";
+}
+article.vim {
+    margin: 5px 0;
+    border: 2px dashed #000000;
+}
+.vim {
+    /* white-space: pre-wrap; */
+    font-family: monospace;
+    background-color: #A9999A;
+}
+pre {
+    margin: 0;
+}
+.wrong, .deprecate {
+    text-decoration: line-through;
+}
