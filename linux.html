@@ -23,21 +23,23 @@
 </head>
 <body role="document">
 <div class="related" aria-label="related navigation" role="navigation"><ul>
-    <li class="right">Index</li>
+    <li class="right">License BSD</li>
+    <li class="right">Sidebar by <a href="http://www.sphinx-doc.org/en/stable/" target="_blank">sphinx</a> |</li>
+    <li class="right">Credits |</li>
 </ul></div>
 
 <div class="document">
 <section id="main-container" class="documentwrapper">
 <div class="bodywrapper"><div class="body" role="main">
 <section>
-    <h1><a name="install">Installation Configurations</a></h1>
+    <h1><a name="install">1. Installation Configurations</a></h1>
 
-    <h2><a name="debian">Setting up Debian</a></h2>
+    <h2><a name="debian">1.1 - Setting up Debian</a></h2>
     <div class="term-container">
         <code class="term">sudo apt-get update && sudo apt-get upgrade</code><hr class="separator" />
         <code class="term">sudo apt-get install chromium chromium-l10n vim apache2 php5 php5-xdebug php5-mysql php5-sqlite php5-mcrypt php5-imagick libapache2-mod-php5 php5-cgi php5-cli php5-common php5-curl php5-dev php5-gd mysql-client curl git-core patch meld mysql-workbench libreoffice audacious pinta gtkpod gimp dropbox wine filezilla aptitude openjdk-7-jdk libjpeg62-turbo libwebkitgtk-1.0-0 git-core docker-engine</code>
     </div>
-    <h3><a name="debian-docker">Installing Docker</a></h3>
+    <h3><a name="debian-docker">1.1.1 - Installing Docker</a></h3>
     See instructions from <a href="https://docs.docker.com/engine/installation/debian/" target="_blank">https://docs.docker.com/engine/installation/debian/</a>
     <div class="term-container">
         <code class="term">sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D</code><hr class="separator" />
@@ -51,10 +53,10 @@
         <code class="term">sudo gpasswd -a ${USER} docker</code><hr class="separator" />
         <code class="term">sudo service docker restart</code>
     </div>
-    <h3><a name="clean-kernels">Clean deprecated kernels</a></h3>
+    <h3><a name="clean-kernels">1.1.2 - Clean deprecated kernels</a></h3>
     <code class="term">dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | xargs sudo apt-get -y purge</code>
 
-    <h2><a name="apache">apache</a></h2>
+    <h2><a name="apache">1.2 - apache</a></h2>
     <div class="term-container">
         <code class="term">sudo apache2ctl configtest</code><hr class="separator" />
         <code class="term">sudo a2enmod headers</code><hr class="separator" />
@@ -68,7 +70,7 @@ Alias   /user /home/USER/public_html
         Options Indexes FollowSymLinks
         AllowOverride None
         Require all granted
-            </Directory>
+</Directory>
 
 <VirtualHost *:80>
         DocumentRoot /home/USER/public_html
@@ -103,7 +105,7 @@ Alias   /user /home/USER/public_html
     </div>
     NB: update C:\Windows\System32\drivers\etc\hosts
 
-    <h2><a name="mysql">mysql</a></h2>
+    <h2><a name="mysql">1.3 - MySQL</a></h2>
     <ul>
         <li><a href="http://www.cyberciti.biz/faq/mysql-user-creation/" target="_blank" class="external">http://www.cyberciti.biz/faq/mysql-user-creation/</a></li>
         <li><a href="http://doc.ubuntu-fr.org/mysql" target="_blank" class="external lang-fr">http://doc.ubuntu-fr.org/mysql</a></li>
@@ -122,7 +124,7 @@ Alias   /user /home/USER/public_html
     <code class="term">mysqldump -u root -p my_database &gt; /path/to/dump.sql</code>
 
 
-    <h2><a name="bash">Bash</a></h2>
+    <h2><a name="bash">1.4 - Terminal Customization</a></h2>
     <div class="term-container">
         <code class="term">vim ~/.bash_aliases</code><hr class="separator" />
         <article class="vim">
@@ -157,7 +159,7 @@ alias chmodf='find . -type f -exec chmod 644 {} +'
     </div>
 
 
-    <a name="git-conf"><h2>Git Setup</h2></a>
+    <a name="git-conf"><h2>1.5 - Git Setup</h2></a>
     For adding extra aliases:
     <div class="term-container">
         <code class="term">git config --global alias.st status</code><hr class="separator" />
@@ -195,7 +197,7 @@ meld $2 $5
         <code class="term">git config --global color.branch auto</code><hr class="separator" />
         <code class="term">git config --global core.whitespace "fix,-indent-with-non-tab,trailing-space,cr-at-eol"</code><hr class="separator" />
     </div>
-    For adding current status of the git in bash
+    For adding current status of the git in bash<br />
     <code class="term">vim ~/.bashrc</code><hr class="separator" />
     replace
     <article class="vim">
@@ -257,7 +259,7 @@ Host github.com
     (<a href="https://github.com/settings/ssh" class="external" target="_blank">https://github.com/settings/ssh</a>)
 
 
-    <h2><a name="svn">Subversion</a></h2>
+    <h2><a name="svn">1.6 - Subversion</a></h2>
     <div class="term-container">
         <code class="term">cd path/to/my/project</code><hr class="separator" />
         <code class="term">svn co http://svn.URL/TO/PROJECT/trunk/src/ ~/www/project --username SVNUSER</code><hr class="separator" />
@@ -273,161 +275,8 @@ Host github.com
         <code class="term">svn commit -m "commit message" --changelist MY_CHANGELIST --username SVNUSER</code>
     </div>
 
-
-    <h2><a name="fedora">Setting up Fedora</a></h2>
-    <div>Netbeans en Fedora: <a href="http://www.if-not-true-then-false.com/2010/install-netbeans-ide-7-0-on-fedora-centos-red-hat-rhel/
-" target="_blank">http://www.if-not-true-then-false.com/2010/install-netbeans-ide-7-0-on-fedora-centos-red-hat-rhel/
-</a></div>
-    <code class="term">cp /usr/share/X11/xorg.conf.d/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf</code>
-    <code class="term">sudo vi /etc/X11/xorg.conf.d/50-synaptics.conf</code>
-    <article class="vim">
-        <pre>
-Section  "InputClass"
-Identifier  "touchpad catchall"
-
-####################################
-# Enable left mouse button by tapping
-Option  "TapButton1"  "1"
-# Enable right mouse button by tapping lower right corner
-Option "RBCornerButton" "3"
-####################################
-
-MatchDevicePath  "/dev/input/event*"
-EndSection
-
-        </pre>
-    </article>
-    <code class="term">sudo yum install pysdm</code>
-    <code class="term">sudo leafpad /etc/lxdm/lxdm.conf</code>
-    <article class="vim">
-        <pre>
-## uncomment and set to set numlock on your keyboard
-numlock=1
-sudo leafpad /etc/X11/xinit/xinitrc
-################
-# https://help.ubuntu.com/community/NumLock
-# Enabling NumLock from startx
-/usr/bin/numlockx on
-
-        </pre>
-    </article>
-    <code class="term">sudo yum install httpd system-config-httpd mod_ssl mod_python php5 php5-xdebug php5-mysql php5-sqlite php5-mcrypt php5-imagick libapache2-mod-php5 php5-cgi php5-cli php5-common php5-curl php5-dev php5-gd mysql-server mysql-client curl</code>
-    <code class="term">sudo yum install vim subversion git-core patch meld mysql-workbench libreoffice audacious pinta amarok gtkpod gimp</code>
-    <code class="term">sudo yum install dropbox wine</code>
-</section>
-
-
-<section>
-    <h1><a name="utils">utils</a></h1>
-
-    <h2>php_error.log</h2>
-    <code class="term">tail -f /var/log/apache2/error.log</code>
-
-
-    <h2><a name="git">Git</a></h2>
-    <ul>
-        <li><a href="http://steveko.wordpress.com/2012/02/24/10-things-i-hate-about-git/" target="_blank" class="external">http://steveko.wordpress.com/2012/02/24/10-things-i-hate-about-git/</a></li>
-    </ul>
-    <div class="term-container">
-        <code class="term">cd ~/PATH/TO/FORK</code><hr class="separator" />
-        <code class="term">git clone git@github.com:micheeell/micheell.github.io.git .</code><hr class="separator" />
-        <code class="term">git config core.filemode false</code>
-    </div>
-    <h3><a name="git-br">Branches</a></h3>
-    <ul>
-        <li>
-            list remote branches (all branches including local: option="-a"):<br />
-            <code class="term">git branch -r</code>
-        </li>
-        <li>
-            change branch to "dev"<br />
-            <code class="term">git checkout dev</code>
-        </li>
-        <li>
-            Delete local branch<br />
-            <code class="term">git branch -d branch_to_remove</code>
-        </li>
-        <li>
-            Git-ignore: ignore unversioned file by adding the filepath:<br />
-            <code class="term">vim .gitignore</code>
-        </li>
-        <li>
-            Ignoring versioned file locally<br />
-            <div class="term-container">
-                <code class="term">git update-index --assume-unchanged path/to/file.txt</code><hr class="separator" />
-                <code class="term">git update-index --skip-worktree .gitignore</code>
-            </div>
-        </li>
-        <li>
-            Cancel local commit<br />
-            <code class="term">git reset HEAD~1</code>
-        </li>
-    </ul>
-    <h3><a name="git-commit">How-to Commit</a></h3>
-    <ol>
-        <li>
-            start with the correct branch ("release-2.8")<br />
-            <code class="term">git checkout release-{ver}</code><hr class="separator" />
-            bis) make sure your code is updated
-            <div class="term-container">
-                <code class="term">git fetch origin</code><hr class="separator" />
-                <code class="term">git pull origin release-{ver}</code>
-            </div>
-        </li>
-        <li>
-            create a new branch<br />
-            <code class="term">git checkout -b NEW_BRANCH_WITH_EXPLICIT_NAME</code>
-        </li>
-        <li>
-            do your job: modify the code to complete the task
-        </li>
-        <li>
-            commit changes (to the local repository)<br />
-            <code class="term">git add .</code><br />
-            bis) comment with a short description ("added social plugins")
-            <div class="term-container">
-                <code class="term">git fetch origin</code><hr class="separator" />
-                <code class="term">git pull origin release-{ver}</code>
-                <code class="term">git commit -m "added social plugins"</code>
-            </div>
-        </li>
-        <li>
-            send changes to remote repository<br />
-            <code class="term">git push origin NEW_BRANCH_WITH_EXPLICIT_NAME</code>
-        </li>
-    </ol>
-
-
-
-    <h1><a name="docker">Docker</a></h1>
-
-    <h2><a name="docker-setup">Setting up Docker</a></h2>
-    <div><a href="http://docs.docker.io.s3-website-us-west-2.amazonaws.com/installation/ubuntulinux/">source</a></div>
-    <div class="term-container">
-        <code class="term">sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9</code><hr class="separator" />
-
-        <code class="term">sudo echo "deb http://get.docker.io/ubuntu docker main" > /etc/apt/sources.list.d/docker.list</code><hr class="separator" />
-        <code class="term">sudo apt-get update</code><hr class="separator" />
-        <code class="term">sudo apt-get install lxc-docker cgroup-lite apparmor</code><hr class="separator" />
-        <code class="term">sudo groupadd docker</code><hr class="separator" />
-        <code class="term">sudo gpasswd -a ${USER} docker</code><hr class="separator" />
-        <code class="term">sudo service docker restart</code>
-    </div>
-
-    <h2><a name="docker-launch">First Launch</a></h2>
-    <div class="term-container">
-        <code class="term">sudo docker pull sebaspo/lyracons-magento-base1</code><hr class="separator" />
-        <code class="term">sudo docker run -i -t -v /home/www:/var/www -v /root/.ssh/authorized_keys:/root/.ssh/authorized_keys server /bin/bash</code><hr class="separator" />
-        <code class="term">sudo apt-get install vim subversion php5 php5-xdebug php5-mysql php5-sqlite php5-mcrypt php5-intl libicu-dev php5-apc php5-imagick php5-cgi php5-cli php5-common php5-curl php5-dev php5-gd mysql-server mysql-client curl git-core libdigest-sha1-perl liberror-perl patch nginx php5-fpm php5-geoip php5-memcache php-xml-serializer php-xml-parser php-soap php5-ldap php5-gd openssh-server</code>
-    </div>
-
-    <h2><a name="docker-maintenance">Maintenance</a></h2>
-    <div class="term-container">
-        <code class="term">sudo docker ps -a</code><hr class="separator" />
-        <code class="term">sudo docker inspect [ID] | grep IPAddress</code><hr class="separator" />
-        <code class="term">ssh root@172.17.0.2</code><hr class="separator" />
-        <code class="term">vim /etc/nginx/sites-available/magento</code>
-    </div>
+    <h2><a name="nginx">1.7 - Nginx</a></h2>
+    <code class="term">vim /etc/nginx/sites-available/magento</code>
     <article class="vim">
         <pre>
 server {
@@ -488,17 +337,191 @@ server {
     <div class="term-container">
         <code class="term sudo">ln -s /etc/nginx/sites-available/magento /etc/nginx/sites-enabled/magento</code><hr class="separator" />
         <code class="term sudo">service nginx reload</code><hr class="separator" />
-        <code class="term">docker start [ID]</code>
     </div>
 
 
-    <h2><a name="mage">magento</a></h2>
+    <h2><a name="fedora">Setting up Fedora</a></h2>
+    <div>Netbeans en Fedora: <a href="http://www.if-not-true-then-false.com/2010/install-netbeans-ide-7-0-on-fedora-centos-red-hat-rhel/
+" target="_blank">http://www.if-not-true-then-false.com/2010/install-netbeans-ide-7-0-on-fedora-centos-red-hat-rhel/
+</a></div>
+    <code class="term">cp /usr/share/X11/xorg.conf.d/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf</code>
+    <code class="term">sudo vi /etc/X11/xorg.conf.d/50-synaptics.conf</code>
+    <article class="vim">
+        <pre>
+Section  "InputClass"
+Identifier  "touchpad catchall"
+
+####################################
+# Enable left mouse button by tapping
+Option  "TapButton1"  "1"
+# Enable right mouse button by tapping lower right corner
+Option "RBCornerButton" "3"
+####################################
+
+MatchDevicePath  "/dev/input/event*"
+EndSection
+        </pre>
+    </article>
+    <code class="term">sudo yum install pysdm</code>
+    <code class="term">sudo leafpad /etc/lxdm/lxdm.conf</code>
+    <article class="vim">
+        <pre>
+## uncomment and set to set numlock on your keyboard
+numlock=1
+sudo leafpad /etc/X11/xinit/xinitrc
+################
+# https://help.ubuntu.com/community/NumLock
+# Enabling NumLock from startx
+/usr/bin/numlockx on
+
+        </pre>
+    </article>
+    <code class="term">sudo yum install httpd system-config-httpd mod_ssl mod_python php5 php5-xdebug php5-mysql php5-sqlite php5-mcrypt php5-imagick libapache2-mod-php5 php5-cgi php5-cli php5-common php5-curl php5-dev php5-gd mysql-server mysql-client curl</code>
+    <code class="term">sudo yum install vim subversion git-core patch meld mysql-workbench libreoffice audacious pinta amarok gtkpod gimp</code>
+    <code class="term">sudo yum install dropbox wine</code>
+</section>
+
+
+<section>
+    <h1><a name="utils">2. Tricks &amp; Tweaks</a></h1>
+
+    <h2>PHP error log</h2>
+    <code class="term">tail -f /var/log/apache2/error.log</code>
+
+
+    <h2><a name="git">2.1 - Git</a></h2>
+    <ul>
+        <li><a href="http://steveko.wordpress.com/2012/02/24/10-things-i-hate-about-git/" target="_blank" class="external">http://steveko.wordpress.com/2012/02/24/10-things-i-hate-about-git/</a></li>
+    </ul>
     <div class="term-container">
-        <span class="term">rm -r var/session/*</span><hr class="separator" />
-        <span class="term">rm -r var/cache/*</span><hr class="separator" />
-        <span class="term sudo">chmod 777 src/app/etc/ -R</span><hr class="separator" />
-        <span class="term sudo">chmod 777 src/var/ -R</span><hr class="separator" />
-        <span class="term sudo">chmod 777 src/media/ -R</span>
+        <code class="term">cd ~/PATH/TO/FORK</code><hr class="separator" />
+        <code class="term">git clone git@github.com:micheeell/micheell.github.io.git .</code><hr class="separator" />
+        <code class="term">git config core.filemode false</code>
+    </div>
+    <h3><a name="git-br">2.1.1 - Branches</a></h3>
+    <ul>
+        <li>
+            list remote branches (all branches including local: option="-a"):<br />
+            <code class="term">git branch -r</code>
+        </li>
+        <li>
+            change branch to "dev"<br />
+            <code class="term">git checkout dev</code>
+        </li>
+        <li>
+            Delete local branch<br />
+            <code class="term">git branch -d branch_to_remove</code>
+        </li>
+    </ul>
+    <h3><a name="git-misc">2.1.2 - Various Tricks</a></h3>
+    <ul>
+        <li>
+            Git-ignore: ignore unversioned file by adding the filepath:<br />
+            <code class="term">vim .gitignore</code>
+        </li>
+        <li>
+            Ignoring versioned file locally<br />
+            <div class="term-container">
+                <code class="term">git update-index --assume-unchanged path/to/file.txt</code><hr class="separator" />
+                <code class="term">git update-index --skip-worktree .gitignore</code>
+            </div>
+        </li>
+        <li>
+            Cancel local commit<br />
+            <code class="term">git reset HEAD~1</code>
+        </li>
+    </ul>
+    <h3><a name="git-commit">2.1.3 How-to Commit</a></h3>
+    <ol>
+        <li>
+            start with the correct branch ("release-2.8")<br />
+            <code class="term">git checkout release-{ver}</code><hr class="separator" />
+            bis) make sure your code is updated
+            <div class="term-container">
+                <code class="term">git fetch origin</code><hr class="separator" />
+                <code class="term">git pull origin release-{ver}</code>
+            </div>
+        </li>
+        <li>
+            create a new branch<br />
+            <code class="term">git checkout -b NEW_BRANCH_WITH_EXPLICIT_NAME</code>
+        </li>
+        <li>
+            do your job: modify the code to complete the task
+        </li>
+        <li>
+            commit changes (to the local repository)<br />
+            <code class="term">git add .</code><br />
+            bis) comment with a short description ("added social plugins")
+            <div class="term-container">
+                <code class="term">git fetch origin</code><hr class="separator" />
+                <code class="term">git pull origin release-{ver}</code><hr class="separator" />
+                <code class="term">git commit -m "added social plugins"</code>
+            </div>
+        </li>
+        <li>
+            send changes to remote repository<br />
+            <code class="term">git push origin NEW_BRANCH_WITH_EXPLICIT_NAME</code>
+        </li>
+    </ol>
+
+
+
+    <h1><a name="docker">2.2 - Docker</a></h1>
+
+    <h2><a name="docker-setup">2.2.1 - Setting up Docker</a></h2>
+    <div><a href="http://docs.docker.io.s3-website-us-west-2.amazonaws.com/installation/ubuntulinux/">source</a></div>
+    <div class="term-container">
+        <code class="term">sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9</code><hr class="separator" />
+        <code class="term">sudo echo "deb http://get.docker.io/ubuntu docker main" > /etc/apt/sources.list.d/docker.list</code><hr class="separator" />
+        <code class="term">sudo apt-get update</code><hr class="separator" />
+        <code class="term">sudo apt-get install lxc-docker cgroup-lite apparmor</code><hr class="separator" />
+        <code class="term">sudo groupadd docker</code><hr class="separator" />
+        <code class="term">sudo gpasswd -a ${USER} docker</code><hr class="separator" />
+        <code class="term">sudo service docker restart</code>
+    </div>
+
+    <h2><a name="docker-launch">2.2.2 - First Launch</a></h2>
+    <div class="term-container">
+        <code class="term">sudo docker pull sebaspo/lyracons-magento-base1</code><hr class="separator" />
+        <code class="term">sudo docker run -i -t -v /home/www:/var/www -v /root/.ssh/authorized_keys:/root/.ssh/authorized_keys server /bin/bash</code><hr class="separator" />
+        <code class="term">sudo apt-get install vim subversion php5 php5-xdebug php5-mysql php5-sqlite php5-mcrypt
+            php5-intl libicu-dev php5-apc php5-imagick php5-cgi php5-cli php5-common php5-curl php5-dev php5-gd
+            mysql-server mysql-client curl git-core libdigest-sha1-perl liberror-perl patch nginx php5-fpm php5-geoip
+            php5-memcache php-xml-serializer php-xml-parser php-soap php5-ldap php5-gd openssh-server</code>
+    </div>
+
+    <h2><a name="docker-maintenance">2.2.3 - Maintenance</a></h2>
+    <div class="term-container">
+        <code class="term">sudo docker ps -a</code><hr class="separator" />
+        <code class="term">sudo docker inspect [ID] | grep IPAddress</code><hr class="separator" />
+        <code class="term">ssh root@172.17.0.2</code><hr class="separator" />
+    </div>
+
+    <h2><a name="vim">2.3 - VIM</a></h2>
+    <a href="http://www.tuxfiles.org/linuxhelp/vimcheat.html" target="_blank" class="external">http://www.tuxfiles.org/linuxhelp/vimcheat.html</a>
+    <div>
+        <ul style="list-style-type:none; line-height:32px;">
+            <li>Insert <span class="code">:i</span></li>
+            <li>Quit Program <span class="code">:q</span></li>
+            <li>Write document <span class="code">:w</span></li>
+            <li>Search for 'pattern' <span class="code">/pattern</span> Press 'n' for next occurrence, 'N' for previous</li>
+            <li>Count occurrences of 'pattern' in all the document <span class="code">:%s/pattern//gn</span></li>
+            <li>Replace '/deprecated_url/' with '/new_local_url/' in all (%) the document in the whole (g) line <span class="code">:%s/\/deprecated_url\//\/new_local_url\//g</span></li>
+            <li>without vim:&nbsp;<a href="http://www.grymoire.com/Unix/Sed.html" class="external" target="_blank">http://www.grymoire.com/Unix/Sed.html</a><br />
+                <code class="term">sed -i 's/deprecated_url/new_local_url/g' FILENAME</code>
+            </li>
+        </ul>
+    </div>
+
+
+    <h2><a name="mage">2.4 - Magento</a></h2>
+    <div class="term-container">
+        <code class="term">rm -r var/session/*</code><hr class="separator" />
+        <code class="term">rm -r var/cache/*</code><hr class="separator" />
+        <code class="term sudo">chmod 777 src/app/etc/ -R</code><hr class="separator" />
+        <code class="term sudo">chmod 777 src/var/ -R</code><hr class="separator" />
+        <code class="term sudo">chmod 777 src/media/ -R</code>
     </div>
     <div class="mysql-container">
         <p class="mysql-cmd">
@@ -522,82 +545,25 @@ UPDATE core_config_data
         </p>
         <p class="mysql-cmd">
 UPDATE core_config_data
-   SET value = 'http://my_project.localhost'
- WHERE value LIKE '%url_prod.st.bl-labs.com%';
+   SET value = 'http://my_project.local/'
+ WHERE value LIKE 'http://url_prod/';
         </p>
         <p class="mysql-cmd">
-            UPDATE core_config_data
+         UPDATE core_config_data
             SET value = 0
-            WHERE path = 'admin/security/use_form_key';
+          WHERE path = 'admin/security/use_form_key';
         </p>
     </div>
 
-    <div>Unblock admin account </div>
+    <div>Unblock admin account</div>
     <div class="mysql-container">
-        <p class="mysql-cmd">SELECT firstname, username, email, failures_num, lock_expires FROM admin_user WHERE user_id = 1;</p>
-        <p class="mysql-cmd">UPDATE admin_user SET failures_num = 0, lock_expires = NULL WHERE user_id = 1;</p>
-        <p class="mysql-cmd">UPDATE admin_user SET password=CONCAT(MD5('qXlalepra098'), ':qX') WHERE user_id = 1;</p>
-        <p class="mysql-cmd">UPDATE admin_user SET is_active = 1 WHERE user_id = 1;</p>
+        <p class="mysql-cmd">SELECT user_id, firstname, username, email, failures_num, lock_expires FROM admin_user WHERE username LIKE 'admin';</p>
+        <p class="mysql-cmd">UPDATE admin_user SET failures_num = 0, lock_expires = NULL WHERE username LIKE 'admin';</p>
+        <p class="mysql-cmd">UPDATE admin_user SET password=CONCAT(MD5('zXqwe123'), ':zX') WHERE username LIKE 'admin';</p>
+        <p class="mysql-cmd">UPDATE admin_user SET is_active = 1 WHERE username LIKE 'admin';</p>
     </div>
 
-    <h2><a name="vim">vim</a></h2>
-    <a href="http://www.tuxfiles.org/linuxhelp/vimcheat.html" target="_blank" class="external">http://www.tuxfiles.org/linuxhelp/vimcheat.html</a>
-    <div>
-    <ul style="list-style-type:none; line-height:32px;">
-        <li><span class="code">:i</span> Insert</li>
-        <li><span class="code">:q</span> Quit</li>
-        <li><span class="code">:w</span> Write</li>
-        <li><span class="code">/pattern</span> Search 'pattern'</li>
-        <li><span class="code">:%s/\/deprecated_url\//\/new_local_url\//g</span> Replace '/deprecated_url/' with '/new_local_url/' in all (%) the document in the whole (g) line</li>
-        <li>without vim:&nbsp;<a href="http://www.grymoire.com/Unix/Sed.html" class="external" target="_blank">http://www.grymoire.com/Unix/Sed.html</a><br />
-            <code class="term">sed -i 's/deprecated_url/new_local_url/g' FILENAME</code>
-        </li>
-    </ul>
-    </div>
-
-
-    <h2><a name="etc">Various</a></h2>
-    <ul>
-    <li><a name="file">file &amp; directory management</a>
-        <div class="term-container">
-            <code class="term sudo">find / -name NAME_TO_LOOK_FOR.EXT 2>/dev/null</code><hr class="separator" />
-            <code class="term">ln -s /path/to/existing/folder /path/to/link</code><hr class="separator" />
-            <code class="term">sudo mv ~/Downloads/*.gif ~/Pictures/gifs/</code><hr class="separator" />
-            <code class="term">cp -r /PATH/TO/original_folder PATH/TO/DESTINATION/</code><hr class="separator" />
-            <code class="term">rm -r RELATIVE/PATH/TO/FOLDER/TO/REMOVE</code><hr class="separator" />
-            <code class="term">cat /dev/null > file_to_empty</code>
-        </div>
-    </li>
-    <li><a name="compress">compression</a>
-        <ul><li><a name="zip">compress</a>
-            <div class="term-container">
-                <code class="term">bzip2 my_file_to_compress</code><hr class="separator" />
-                <code class="term">tar -zcvf /home/_dumps/my_dump.tar.gz /home/_dumps/dumpfile.sql</code><hr class="separator" />
-                <code class="term">tar cvf ~/Documents/gco/code/modif-2013-05-08.tar<br />
-                    src/app/code/local/Pagosonline/Tarjetas/Helper/Data.php<br />
-                    src/app/code/local/Pagosonline/Tarjetas/Model/Api.php src/app/code/local/Pagosonline/Tarjetas/etc/config.xml<br />
-                    src/app/code/local/Pagosonline/Tarjetas/etc/system.xml src/lib/Pagosonline/TransaccionPseConInformacionAdicionalWS.php<br />
-                    src/lib/Pagosonline/WebServicesClientesImplUTService.php src/app/code/local/Pagosonline/Tarjetas/Block/Form/Debito.php<br />
-                    src/app/code/local/Pagosonline/Tarjetas/Block/Info/Debito.php src/app/code/local/Pagosonline/Tarjetas/Model/Debito.php<br />
-                    src/app/code/local/Pagosonline/Tarjetas/controllers/PseController.php<br />
-                    src/app/code/local/Pagosonline/Tarjetas/sql/pagosonline_tarjetas_setup/mysql4-upgrade-0.1.1-0.1.2.php<br />
-                    src/app/design/frontend/base/default/template/pagosonline/form/debito.phtml</code><hr class="separator" />
-                <code class="term">tar cvf ~/Documents/linux.tar linux.php _css _img/_screens</code>
-            </div>
-        </li><li><a name="unzip">uncompress</a>
-            <div class="term-container">
-                <code class="term">bunzip2 my_file_to_decompress.bz2</code><hr class="separator" />
-                <code class="term">unzip FILE.ZIP -d /PATH/TO/DESTINATION</code><hr class="separator" />
-                <code class="term">gunzip -c /PATH/TO/MY/FILE.gz > /PATH/TO/DESTINATION/_FILE</code>
-            </div>
-        </li></ul>
-    </li>
-    <li><a name="sftp">sftp - Secure copy</a>
-    <code class="term">scp SSHUSER@DOMAIN:/server/path/to/file.tar.gz ~/LOCAL/DESTINATION/DIRECTORY</code>
-    </li>
-    </ul>
-
-    <h2><a name="certif">self-signed certificates</a></h2>
+    <h2><a name="certif">2.5 - self-signed certificates</a></h2>
     <ul>
         <li><a href="http://www.akadia.com/services/ssh_test_certificate.html" target="_blank" class="external">http://www.akadia.com/services/ssh_test_certificate.html</a></li>
         <li><a href="https://www.digitalocean.com/community/articles/how-to-create-a-ssl-certificate-on-apache-for-ubuntu-12-04" target="_blank" class="external">https://www.digitalocean.com/community/articles/how-to-create-a-ssl-certificate-on-apache-for-ubuntu-12-04</a></li>
@@ -652,7 +618,50 @@ NameVirtualHost *:443
         <code class="term">sudo service apache2 restart</code>
     </div>
 
-    <h2><a name="off">Off-subject</a></h2>
+
+    <h2><a name="etc">2.6 - Various</a></h2>
+    <ul>
+    <li><a name="file">2.6.1 - file &amp; directory management</a>
+        <div class="term-container">
+            <code class="term sudo">find / -name NAME_TO_LOOK_FOR.EXT 2>/dev/null</code><hr class="separator" />
+            <code class="term">ln -s /path/to/existing/folder /path/to/link</code><hr class="separator" />
+            <code class="term">sudo mv ~/Downloads/*.gif ~/Pictures/gifs/</code><hr class="separator" />
+            <code class="term">cp -r /PATH/TO/original_folder PATH/TO/DESTINATION/</code><hr class="separator" />
+            <code class="term">rm -r RELATIVE/PATH/TO/FOLDER/TO/REMOVE</code><hr class="separator" />
+            <code class="term">cat /dev/null > file_to_empty</code>
+        </div>
+    </li>
+    <li><a name="compress">2.6.2 - compression</a>
+        <ul><li><a name="zip">a) compress</a>
+            <div class="term-container">
+                <code class="term">bzip2 my_file_to_compress</code><hr class="separator" />
+                <code class="term">tar -zcvf /home/_dumps/my_dump.tar.gz /home/_dumps/dumpfile.sql</code><hr class="separator" />
+                <code class="term">tar cvf ~/Documents/gco/code/modif-2013-05-08.tar
+                    src/app/code/local/Pagosonline/Tarjetas/Helper/Data.php
+                    src/app/code/local/Pagosonline/Tarjetas/Model/Api.php src/app/code/local/Pagosonline/Tarjetas/etc/config.xml
+                    src/app/code/local/Pagosonline/Tarjetas/etc/system.xml src/lib/Pagosonline/TransaccionPseConInformacionAdicionalWS.php
+                    src/lib/Pagosonline/WebServicesClientesImplUTService.php src/app/code/local/Pagosonline/Tarjetas/Block/Form/Debito.php
+                    src/app/code/local/Pagosonline/Tarjetas/Block/Info/Debito.php src/app/code/local/Pagosonline/Tarjetas/Model/Debito.php
+                    src/app/code/local/Pagosonline/Tarjetas/controllers/PseController.php
+                    src/app/code/local/Pagosonline/Tarjetas/sql/pagosonline_tarjetas_setup/mysql4-upgrade-0.1.1-0.1.2.php
+                    src/app/design/frontend/base/default/template/pagosonline/form/debito.phtml</code><hr class="separator" />
+                <code class="term">tar cvf ~/Documents/linux.tar linux.php _css _img/_screens</code>
+            </div>
+        </li><li><a name="unzip">b) uncompress</a>
+            <div class="term-container">
+                <code class="term">bunzip2 my_file_to_decompress.bz2</code><hr class="separator" />
+                <code class="term">unzip FILE.ZIP -d /PATH/TO/DESTINATION</code><hr class="separator" />
+                <code class="term">gunzip -c /PATH/TO/MY/FILE.gz > /PATH/TO/DESTINATION/_FILE</code>
+            </div>
+        </li></ul>
+    </li>
+    <li><a name="sftp">2.6.3 - sftp - Secure copy</a><br />
+    <code class="term">scp SSHUSER@DOMAIN:/server/path/to/file.tar.gz ~/LOCAL/DESTINATION/DIRECTORY</code>
+    </li>
+    </ul>
+
+
+    <h2><a name="off">3. Off-subject</a></h2>
     <ul style="list-style-type:none; line-height:24px;">
         <li><a href="http://diveintohtml5.info/semantics.html" target="_blank" class="external">html5</a></li>
     </ul>
@@ -661,14 +670,14 @@ NameVirtualHost *:443
 </div></div>
 </section>
 
-<nav class="sphinxsidebar" role="table-of-contents" aria-label="main navigation">
+<nav class="sphinxsidebar" role="navigation" aria-label="main navigation">
     <div class="sphinxsidebarwrapper">
     <ul>
         <li>
-            <a href="#install"><h3>Tools Setup</h3></a>
+            <a href="#install"><h2>System Config &amp; Tools Setup</h2></a>
             <ul>
                 <li>
-                    <a href="#debian"><h4>debian</h4></a>
+                    <a href="#debian"><h4>1.1) debian</h4></a>
                     <ul>
                         <li>
                             <a href="#debian-docker">install docker</a>
@@ -679,56 +688,57 @@ NameVirtualHost *:443
                     </ul>
                 </li>
                 <li>
-                    <a href="#apache"><h4>apache</h4></a>
+                    <a href="#apache"><h4>1.2) apache</h4></a>
                 </li>
                 <li>
-                    <a href="#mysql"><h4>mysql</h4></a>
+                    <a href="#mysql"><h4>1.3) mysql</h4></a>
                 </li>
                 <li>
-                    <a href="#bash"><h4>Terminal</h4></a>
+                    <a href="#bash"><h4>1.4) Terminal</h4></a>
                 </li>
                 <li>
-                    <a href="#git-conf"><h4>Git</h4></a>
+                    <a href="#git-conf"><h4>1.5) Git</h4></a>
                 </li>
                 <li>
-                    <a href="#svn"><h4>SVN</h4></a>
+                    <a href="#svn"><h4>1.6) SVN</h4></a>
                 </li>
+                <li><a href="#nginx"><h4>1.7) nginx</h4></a></li>
                 <li class="deprecate">
                     <a href="#fedora">fedora</a>
                 </li>
             </ul>
         </li>
         <li>
-            <a href="#utils"><h3>Tricks &amp; Tweaks</h3></a>
+            <a href="#utils"><h2>Tricks &amp; Tweaks</h2></a>
             <ul>
                 <li>
-                    <a href="#git"><h4>git</h4></a>
+                    <a href="#git"><h4>2.1) git</h4></a>
                     <ul>
                         <li>
-                            <a href="#git-br"><h4>branches</h4></a>
+                            <a href="#git-br">branches</a>
                         </li>
                         <li>
-                            <a href="#git-commit"><h4>how-to commit</h4></a>
+                            <a href="#git-misc">Miscellaneous</a>
+                        </li>
+                        <li>
+                            <a href="#git-commit">how-to commit</a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#docker"><h3>Docker</h3></a>
-                    <ul>
-                        <li><a href="#nginx"><h4>nginx</h4></a></li>
-                    </ul>
+                    <a href="#docker"><h4>2.2) Docker</h4></a>
                 </li>
                 <li>
-                    <a href="#mage"><h4>magento</h4></a>
+                    <a href="#vim"><h4>2.3) VIM</h4></a>
                 </li>
                 <li>
-                    <a href="#vim"><h4>VIM</h4></a>
+                    <a href="#mage"><h4>2.4) magento</h4></a>
                 </li>
                 <li>
-                    <a href="#certif"><h4>self-signed certificate</h4></a>
+                    <a href="#certif"><h4>2.5) self-signed certificate</h4></a>
                 </li>
                 <li>
-                    <a href="#etc"><h4>other</h4></a>
+                    <a href="#etc"><h4>2.6) other</h4></a>
                     <ul>
                         <li><a href="#file">file management</a></li>
                         <li><a href="#compress">compression</a></li>

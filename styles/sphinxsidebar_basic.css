@@ -52,13 +52,12 @@ nav.sphinxsidebar {
 }
 
 nav.sphinxsidebar ul {
-    list-style: none;
+    list-style: outside none none;
 }
 
 nav.sphinxsidebar ul ul,
 nav.sphinxsidebar ul.want-points {
     margin-left: 20px;
-    list-style: square;
 }
 
 nav.sphinxsidebar ul ul {
