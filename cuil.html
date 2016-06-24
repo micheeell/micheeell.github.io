@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Validador CUIL</title>
+    <style type="text/css">
+        .invalid{ color:red; }
+        .valid{ color:blue; font-weight:bold; font-size:1.2em; }
+        .msg{ color:#888; text-align:justify; }
+    </style>
+    <script type="text/javascript">
+    function validarCuil() {
+        var regEx =  /\d{11}/;
+        var cuil = document.getElementById("txtCuil").value;
+        if (regEx.test(cuil)) {
+            var prefix = cuil.charAt(0) + cuil.charAt(1);
+            if (['20', '23', '24', '27', '30', '33', '34'].indexOf(prefix) == -1) {
+                alert("El CUIL " + cuil + " NO es válido: debe empezar por 20, 23, 24, 27, 30, 33 o 34.");
+                return false;
+            }
+            var factores = "6789456789";
+            var ultimoIndex = cuil.length - 1;
+            var sumaTotal = 0;
+            for (var i = 0; i < ultimoIndex; i++) {
+                sumaTotal += (parseInt(cuil.charAt(i)) * parseInt(factores.charAt(i)));
+            }
+            var residuo = sumaTotal %11;
+            var ultimoDigitoCalc = (residuo == 10) ? 0 : residuo;
+
+            var ultimoDigitoCuil = parseInt(cuil.charAt(ultimoIndex));
+
+            if (ultimoDigitoCuil == ultimoDigitoCalc) {
+                alert("SÍ, el CUIL " + cuil + " es válido.");
+            } else {
+                alert("¡ALERTA: El CUIL " + cuil + " NO es válido! Debe terminar por " + ultimoDigitoCalc + ".");
+            }
+        } else  {
+            alert("ALERTA: El CUIL no es válido, debe constar de 11 caracteres numéricos.");
+            document.getElementById("txtCuil").focus();
+        }
+    }
+    function validarLength() {
+        var cuil = document.getElementById("txtCuil").value;
+        var length = cuil ? cuil.length : 0;
+        document.getElementById("contenedorMensaje").innerHTML = '<p class="' + ((length != 11) ? "invalid" : "valid") + '">' + length + ' caracteres</p>';
+    }
+    </script>
+</head>
+<body>
+<div class="">
+    <h1>VALIDADOR CUIL</h1>
+</div>
+<div class="">
+    <label for="txtCuil">CUIL: </label>
+    <input type="text" id="txtCuil" name="txtCuil"
+           onkeyup="validarLength()" onkeypress="validarLength()" onfocus="validarLength()" />
+    <input type="button" value="Validar" onclick="validarCuil()" />
+</div>
+<div id="contenedorMensaje"></div>
+<div>
+    <p class="msg">*Esto sólo verifica si el CUIL es válido, NO si se encuentra registrado &amp; vigente.</p>
+</div>
+</body>
+</html>
