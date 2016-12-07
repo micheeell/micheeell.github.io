@@ -3,31 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Validador CUIL</title>
+    <meta name="description" content="Un validador en javascript para generar y testear números de CUIL">
+    <link rel="stylesheet" href="styles/masking-input.css"/>
     <style type="text/css">
+        .row { float: none; display: block; clear: both; }
+        .row-col{ position: relative; float: left; padding: 0 8px; }
         .invalid{ color:red; }
         .valid{ color:blue; font-weight:bold; font-size:1.2em; }
         .msg{ color:#888; text-align:justify; }
     </style>
     <script type="text/javascript">
     function validarCuil() {
-        var regEx =  /\d{11}/;
-        var cuil = document.getElementById("txtCuil").value;
-        if (regEx.test(cuil)) {
-            var prefix = cuil.charAt(0) + cuil.charAt(1);
+        var regEx =  /^\d{11}$/;
+        var cuil = document.getElementById("cuil").value;
+        var cuilVal = cuil.replace(/-/g, '');
+        if (regEx.test(cuilVal)) {
+            var prefix = cuilVal.charAt(0) + cuilVal.charAt(1);
             if (['20', '23', '24', '27', '30', '33', '34'].indexOf(prefix) == -1) {
                 alert("El CUIL " + cuil + " NO es válido: debe empezar por 20, 23, 24, 27, 30, 33 o 34.");
                 return false;
             }
             var factores = "6789456789";
-            var ultimoIndex = cuil.length - 1;
+            var ultimoIndex = cuilVal.length - 1;
             var sumaTotal = 0;
             for (var i = 0; i < ultimoIndex; i++) {
-                sumaTotal += (parseInt(cuil.charAt(i)) * parseInt(factores.charAt(i)));
+                sumaTotal += (parseInt(cuilVal.charAt(i)) * parseInt(factores.charAt(i)));
             }
             var residuo = sumaTotal %11;
             var ultimoDigitoCalc = (residuo == 10) ? 0 : residuo;
 
-            var ultimoDigitoCuil = parseInt(cuil.charAt(ultimoIndex));
+            var ultimoDigitoCuil = parseInt(cuilVal.charAt(ultimoIndex));
 
             if (ultimoDigitoCuil == ultimoDigitoCalc) {
                 alert("SÍ, el CUIL " + cuil + " es válido.");
@@ -35,30 +40,33 @@
                 alert("¡ALERTA: El CUIL " + cuil + " NO es válido! Debe terminar por " + ultimoDigitoCalc + ".");
             }
         } else  {
-            alert("ALERTA: El CUIL no es válido, debe constar de 11 caracteres numéricos.");
-            document.getElementById("txtCuil").focus();
+            alert("ALERTA: El CUIL "+cuil+" no es válido, debe constar de 11 caracteres numéricos.");
+            document.getElementById("cuil").focus();
         }
-    }
-    function validarLength() {
-        var cuil = document.getElementById("txtCuil").value;
-        var length = cuil ? cuil.length : 0;
-        document.getElementById("contenedorMensaje").innerHTML = '<p class="' + ((length != 11) ? "invalid" : "valid") + '">' + length + ' caracteres</p>';
     }
     </script>
 </head>
 <body>
-<div class="">
+<div class="title">
     <h1>VALIDADOR CUIL</h1>
 </div>
-<div class="">
-    <label for="txtCuil">CUIL: </label>
-    <input type="text" id="txtCuil" name="txtCuil"
-           onkeyup="validarLength()" onkeypress="validarLength()" onfocus="validarLength()" />
-    <input type="button" value="Validar" onclick="validarCuil()" />
+<div class="row">
+    <div class="row-col">
+        <label for="cuil">CUIL:</label>
+        <input type="text" id="cuil" name="cuil" class="masked"
+               data-placeholder="XX-XXXXXXXX-X" placeholder="XX-XXXXXXXX-X"
+               pattern="(20|23|24|27|30|33|34)-?(\d{8})-?(\d)"
+               data-valid-example="20-12345678-6" />
+    </div>
+    <input type="button" class="row-col" value="Validar" onclick="validarCuil();" />
 </div>
-<div id="contenedorMensaje"></div>
-<div>
+<div id="contenedorMensaje" class="row"></div>
+<div class="row">
     <p class="msg">*Esto sólo verifica si el CUIL es válido, NO si se encuentra registrado &amp; vigente.</p>
 </div>
+<div>
+    <p class="msg">Mirá el <a href="https://github.com/micheeell/micheeell.github.io/blob/master/cuil.html">código</a> en <a href="https://github.com/" target="_blank">github</a>.</p>
+</div>
+<script src="javascript/masking-input.js" data-autoinit="true"></script>
 </body>
 </html>
