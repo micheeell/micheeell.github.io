@@ -13,9 +13,10 @@
         .msg{ color:#888; text-align:justify; }
     </style>
     <script type="text/javascript">
-    function validarCuil() {
-        var regEx =  /^\d{11}$/;
+    const validarCuil = function validarCuilTodo() {
         var cuil = document.getElementById("cuil").value;
+
+        var regEx =  /^\d{11}$/;
         var cuilVal = cuil.replace(/-/g, '');
         if (regEx.test(cuilVal)) {
             var prefix = cuilVal.charAt(0) + cuilVal.charAt(1);
@@ -43,6 +44,47 @@
             alert("ALERTA: El CUIL "+cuil+" no es válido, debe constar de 11 caracteres numéricos.");
             document.getElementById("cuil").focus();
         }
+    };
+    const validarRut = function validarRutTodo() {
+        var regEx =  /^\d{2,11}$/;
+        var rut = document.getElementById("rut").value;
+        var rutVal = rut.replace(/-/g, '');
+        if (!regEx.test(rutVal)) {
+            alert("ALERTA: El RUT "+rut+" no es válido, debe constar de 6 a 11 caracteres numéricos.");
+            document.getElementById("rut").focus();
+            return false;
+        }
+        var core = rutVal.slice(0, -1);
+        var dv = rutVal.substr(rutVal.length - 1),
+            ultimoDigitoCalc = getRutDigitoVerificador(core);
+        if (ultimoDigitoCalc === parseInt(dv)) {
+            alert("SÍ, el RUT " + rut + " es válido.");
+            return true;
+        } else {
+            alert("¡ALERTA: El RUT " + rut + " NO es válido! Debe terminar por " + ultimoDigitoCalc + ".");
+            return false;
+        }
+    };
+    const getRutDigitoVerificador = function getDigito(rut) {
+        var rutlength = rut.length,
+            suma = 0,
+            mul  = 2;
+        for (var i = 0; i < rutlength; i++) {
+            suma += rut.charAt(rutlength - 1 - i) * mul;
+            if (mul === 7) {
+                mul = 2;
+            } else {
+                mul++;
+            }
+        }
+        var res = suma %11;
+        if (res === 1) {
+            return 'k';
+        } else if (res === 0) {
+            return '0';
+        } else {
+            return 11-res;
+        }
     }
     </script>
 </head>
@@ -63,6 +105,20 @@
 <div id="contenedorMensaje" class="row"></div>
 <div class="row">
     <p class="msg">*Esto sólo verifica si el CUIL es válido, NO si se encuentra registrado &amp; vigente.</p>
+</div>
+<div class="title">
+    <h1>VALIDADOR RUT</h1>
+</div>
+<div class="row">
+    <div class="row-col">
+        <label for="rut">RUT:</label>
+        <input type="text" id="rut" name="rut" />
+    </div>
+    <input type="button" class="row-col" value="Validar RUT" onclick="validarRut();" />
+</div>
+<div class="row">
+    <p class="msg">*Esto sólo verifica si el RUT es válido, NO si se encuentra registrado &amp; vigente.</p>
+    <p class="more">M&aacute;s informaci&oacute;n en <a href="http://cauditor2.blogspot.com.ar/2009/09/modulo-11-o-validador-de-rut.html">este post de blog sobre la validación</a> y <a href="http://jqueryrut.sourceforge.net/generador-de-ruts-chilenos-validos.html">este generador de RUTs v&aacute;lidos</a></p>
 </div>
 <div>
     <p class="msg">Mirá el <a href="https://github.com/micheeell/micheeell.github.io/blob/master/cuil.html">código</a> en <a href="https://github.com/" target="_blank">github</a>.</p>
