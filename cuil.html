@@ -46,9 +46,9 @@
         }
     };
     const validarRut = function validarRutTodo() {
-        var regEx =  /^\d{2,11}$/;
+        var regEx =  /^\d{2,11}k?$/i;
         var rut = document.getElementById("rut").value;
-        var rutVal = rut.replace(/-/g, '');
+        var rutVal = rut.replace(/-/g, '').toLowerCase();
         if (!regEx.test(rutVal)) {
             alert("ALERTA: El RUT "+rut+" no es válido, debe constar de 6 a 11 caracteres numéricos.");
             document.getElementById("rut").focus();
@@ -57,7 +57,7 @@
         var core = rutVal.slice(0, -1);
         var dv = rutVal.substr(rutVal.length - 1),
             ultimoDigitoCalc = getRutDigitoVerificador(core);
-        if (ultimoDigitoCalc === parseInt(dv)) {
+        if (ultimoDigitoCalc == dv) {
             alert("SÍ, el RUT " + rut + " es válido.");
             return true;
         } else {
