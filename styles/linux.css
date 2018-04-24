@@ -33,7 +33,7 @@ hr.separator {
 .mysql-cmd::before {
     content: "mysql> ";
 }
-article.vim {
+div.article.vim {
     margin: 5px 0;
     border: 2px dashed #000000;
 }
@@ -42,9 +42,22 @@ article.vim {
     font-family: monospace;
     background-color: #A9999A;
 }
-pre {
-    margin: 0;
-}
 .wrong, .deprecate {
     text-decoration: line-through;
+}
+textarea {
+    width: 98.4375%;
+}
+textarea.pre {
+    padding: 5px;
+    background-color: #eeffcc;
+    color: #333333;
+    line-height: 120%;
+    border: 1px solid #ac9;
+    border-left: none;
+    border-right: none;
+    margin: 0;
+}
+h1.page-title {
+    display: none;
 }

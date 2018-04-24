@@ -50,7 +50,7 @@
         var rut = document.getElementById("rut").value;
         var rutVal = rut.replace(/-/g, '').toLowerCase();
         if (!regEx.test(rutVal)) {
-            alert("ALERTA: El RUT "+rut+" no es válido, debe constar de 6 a 11 caracteres numéricos.");
+            alert("ALERTA: El RUT " + rut + " no es válido, debe constar de 6 a 11 caracteres numéricos.");
             document.getElementById("rut").focus();
             return false;
         }

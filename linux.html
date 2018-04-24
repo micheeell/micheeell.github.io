@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="styles/sphinxsidebar_classic.css" />
 <link rel="icon" href="ubuntu.png" type="image/x-icon" />
 <link rel="shortcut icon" href="ubuntu.png" type="image/x-icon" />
-<script type="text/javascript">
+<script>
   var DOCUMENTATION_OPTIONS = {
     URL_ROOT:    './',
     VERSION:     '1.0.0.0',
@@ -15,13 +15,25 @@
     FILE_SUFFIX: '.html',
     HAS_SOURCE:  true
   };
-  </script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript" src="javascript/underscore.js"></script>
-<script type="text/javascript" src="javascript/linux.js"></script>
-<script type="text/javascript" src="javascript/sphinxsidebar.js"></script>
+  window.onload = function () {
+      var tx = document.getElementsByTagName('textarea');
+      for (var i = 0; i < tx.length; i++) {
+          tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden;');
+          tx[i].addEventListener("input", OnInput, false);
+      }
+
+      function OnInput() {
+          this.style.height = 'auto';
+          this.style.height = (this.scrollHeight) + 'px';
+      }
+  };
+</script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="javascript/underscore.js"></script>
+<script src="javascript/linux.js"></script>
+<script src="javascript/sphinxsidebar.js"></script>
 </head>
-<body role="document">
+<body>
 <div class="related" aria-label="related navigation" role="navigation"><ul>
     <li class="right">License BSD</li>
     <li class="right">Sidebar by <a href="http://www.sphinx-doc.org/en/stable/" target="_blank">sphinx</a> |</li>
@@ -30,41 +42,42 @@
 
 <div class="document">
 <section id="main-container" class="documentwrapper">
+    <h1 class="page-title">Linux Tricks</h1>
 <div class="bodywrapper"><div class="body" role="main">
 <section>
-    <h1><a name="install">1. Installation Configurations</a></h1>
+    <h2><a id="install">1. Installation Configurations</a></h2>
 
-    <h2><a name="debian">1.1 - Setting up Debian</a></h2>
+    <h3><a id="debian">1.1 - Setting up Debian</a></h3>
     <div class="term-container">
         <code class="term">sudo apt-get update && sudo apt-get upgrade</code><hr class="separator" />
         <code class="term">sudo apt-get install chromium chromium-l10n vim apache2 php5 php5-xdebug php5-mysql php5-sqlite php5-mcrypt php5-imagick libapache2-mod-php5 php5-cgi php5-cli php5-common php5-curl php5-dev php5-gd mysql-client curl git-core patch meld mysql-workbench libreoffice audacious pinta gtkpod gimp dropbox wine filezilla aptitude openjdk-7-jdk libjpeg62-turbo libwebkitgtk-1.0-0 git-core docker-engine</code>
     </div>
-    <h3><a name="debian-docker">1.1.1 - Installing Docker</a></h3>
+    <h4><a id="debian-docker">1.1.1 - Installing Docker</a></h4>
     See instructions from <a href="https://docs.docker.com/engine/installation/debian/" target="_blank">https://docs.docker.com/engine/installation/debian/</a>
     <div class="term-container">
         <code class="term">sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D</code><hr class="separator" />
         <code class="term">sudo vi /etc/apt/sources.list.d/docker.list</code><hr class="separator" />
-        <article class="vim">
-            <pre>deb https://apt.dockerproject.org/repo debian-jessie main</pre>
-        </article>
+        <div class="article vim">
+            <textarea class="pre">deb https://apt.dockerproject.org/repo debian-jessie main</textarea>
+        </div>
         <code class="term">sudo apt-get update && sudo apt-get upgrade</code><hr class="separator" />
         <code class="term">sudo apt-get install docker-engine</code><hr class="separator" />
         <code class="term">sudo groupadd docker</code><hr class="separator" />
         <code class="term">sudo gpasswd -a ${USER} docker</code><hr class="separator" />
         <code class="term">sudo service docker restart</code>
     </div>
-    <h3><a name="clean-kernels">1.1.2 - Clean deprecated kernels</a></h3>
+    <h4><a id="clean-kernels">1.1.2 - Clean deprecated kernels</a></h4>
     <code class="term">dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | xargs sudo apt-get -y purge</code>
 
-    <h2><a name="apache">1.2 - apache</a></h2>
+    <h3><a id="apache">1.2 - apache</a></h3>
     <div class="term-container">
         <code class="term">sudo apache2ctl configtest</code><hr class="separator" />
         <code class="term">sudo a2enmod headers</code><hr class="separator" />
         <code class="term">sudo a2enmod rewrite</code><hr class="separator" />
         <code class="term sudo">service apache2 restart</code><hr class="separator" />
         <code class="term">sudo vim /etc/apache2/sites-available/LOCALSITE.conf</code><hr class="separator" />
-        <article class="vim">
-        <pre>
+        <div class="article vim">
+        <textarea class="pre">
 Alias   /user /home/USER/public_html
 <Directory /home/USER/public_html/>
         Options Indexes FollowSymLinks
@@ -84,12 +97,12 @@ Alias   /user /home/USER/public_html
         ErrorLog ${APACHE_LOG_DIR}/error.log
         CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
-            </pre>
-        </article>
+        </textarea>
+        </div>
         <code class="term">sudo a2ensite LOCALSITE</code><hr class="separator" />
         <code class="term">sudo vim /etc/apache2/sites-available/VAGRANTSITE</code><hr class="separator" />
-        <article class="vim">
-            <pre>
+        <div class="article vim">
+            <textarea class="pre">
 <VirtualHost *:80>
     ServerAdmin "webmaster@VAGRANTSITE.localhost"
     DocumentRoot "/home/vagrant/www/VAGRANTSITE/src"
@@ -97,15 +110,15 @@ Alias   /user /home/USER/public_html
     CustomLog "/home/vagrant/www/VAGRANTSITE/src/var/custom.log" common
     ServerName VAGRANTSITE.local
 </VirtualHost>
-            </pre>
-        </article>
+            </textarea>
+        </div>
         <code class="term">sudo a2ensite VAGRANTSITE</code><hr class="separator" />
         <code class="term sudo">service apache2 reload</code><hr class="separator" />
         <code class="term">sudo vim /etc/hosts</code>
     </div>
     NB: update C:\Windows\System32\drivers\etc\hosts
 
-    <h2><a name="mysql">1.3 - MySQL</a></h2>
+    <h3><a id="mysql">1.3 - MySQL</a></h3>
     <ul>
         <li><a href="http://www.cyberciti.biz/faq/mysql-user-creation/" target="_blank" class="external">http://www.cyberciti.biz/faq/mysql-user-creation/</a></li>
         <li><a href="http://doc.ubuntu-fr.org/mysql" target="_blank" class="external lang-fr">http://doc.ubuntu-fr.org/mysql</a></li>
@@ -123,12 +136,11 @@ Alias   /user /home/USER/public_html
     <code class="term">mysql -u my_user -p my_database &lt; my-dump.sql</code><hr class="separator" />
     <code class="term">mysqldump -u root -p my_database &gt; /path/to/dump.sql</code>
 
-
-    <h2><a name="bash">1.4 - Terminal Customization</a></h2>
+    <h3><a id="bash">1.4 - Terminal Customization</a></h3>
     <div class="term-container">
         <code class="term">vim ~/.bash_aliases</code><hr class="separator" />
-        <article class="vim">
-            <pre>
+        <div class="article vim">
+            <textarea class="pre">
 alias ..='cd ..'
 alias ,,='cd ..'
 alias ññ='ll'
@@ -154,12 +166,12 @@ alias dr='docker rm -f'
 alias sshh='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
 alias chmodd='find . -type d -exec chmod 755 {} +'
 alias chmodf='find . -type f -exec chmod 644 {} +'
-            </pre>
-        </article>
+            </textarea>
+        </div>
     </div>
 
 
-    <a name="git-conf"><h2>1.5 - Git Setup</h2></a>
+    <a id="git-conf"><h3>1.5 - Git Setup</h3></a>
     For adding extra aliases:
     <div class="term-container">
         <code class="term">git config --global alias.st status</code><hr class="separator" />
@@ -184,12 +196,12 @@ alias chmodf='find . -type f -exec chmod 644 {} +'
         <code class="term">git config --global diff.external git-meld</code><hr class="separator" />
         <code class="term">sudo vim /bin/git-meld</code>
     </div>
-    <article class="vim">
-        <pre>
+    <div class="article vim">
+        <textarea class="pre">
 #!/bin/bash
 meld $2 $5
-        </pre>
-    </article>
+        </textarea>
+    </div>
     <code class="term">sudo chmod 755 /bin/git-meld</code><hr class="separator" />
     For adding the coloring options to the command line:
     <div class="term-container">
@@ -200,18 +212,18 @@ meld $2 $5
     For adding current status of the git in bash<br />
     <code class="term">vim ~/.bashrc</code><hr class="separator" />
     replace
-    <article class="vim">
-        <pre>
+    <div class="article vim">
+        <textarea class="pre">
 if [ "\$color_prompt" = yes ]; then
     PS1='\${debian_chroot:+(\$debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
     PS1='\${debian_chroot:+(\$debian_chroot)}\u@\h:\w\$ '
 fi
-        </pre>
-    </article>
+        </textarea>
+    </div>
     with
-    <article class="vim">
-        <pre>
+    <div class="article vim">
+        <textarea class="pre">
 # for git
 export GIT_PS1_SHOWDIRTYSTATE=true
 export GIT_PS1_SHOWUNTRACKEDFILES=true
@@ -239,27 +251,27 @@ else
         PS1='\${debian_chroot:+(\$debian_chroot)}\u@\h:\w\$ '
     fi
 fi
-        </pre>
-    </article>
+        </textarea>
+    </div>
     <div class="term-container">
         <code class="term">ssh-keygen -t rsa</code><hr class="separator" />
         <code class="term">vim ~/.ssh/config</code>
     </div>
-    <article class="vim">
-        <pre>
+    <div class="article vim">
+        <textarea class="pre">
 Host github.com
         HostName github.com
         IdentityFile ~/.ssh/github
-        </pre>
-    </article>
+        </textarea>
+    </div>
     <code class="term">vim /home/vagrant/.ssh/github.pub</code>
-    <article class="vim">
-        <pre>ssh-rsa SOMERANDOMSTRING+FRUTAfrutaFRUTA vagrant@lucid32</pre>
-    </article>
+    <div class="article vim">
+        <textarea class="pre">ssh-rsa SOMERANDOMSTRING+FRUTAfrutaFRUTA vagrant@lucid32</textarea>
+    </div>
     (<a href="https://github.com/settings/ssh" class="external" target="_blank">https://github.com/settings/ssh</a>)
 
 
-    <h2><a name="svn">1.6 - Subversion</a></h2>
+    <h3><a id="svn">1.6 - Subversion</a></h3>
     <div class="term-container">
         <code class="term">cd path/to/my/project</code><hr class="separator" />
         <code class="term">svn co http://svn.URL/TO/PROJECT/trunk/src/ ~/www/project --username SVNUSER</code><hr class="separator" />
@@ -275,10 +287,15 @@ Host github.com
         <code class="term">svn commit -m "commit message" --changelist MY_CHANGELIST --username SVNUSER</code>
     </div>
 
-    <h2><a name="nginx">1.7 - Nginx</a></h2>
+    <h3><a id="nginx">1.7 - Nginx</a></h3>
     <code class="term">vim /etc/nginx/sites-available/magento</code>
-    <article class="vim">
-        <pre>
+    <div class="article vim">
+        <textarea class="pre">
+server {
+    server_name "~^(?!www\.).*" ;
+    return 301 $scheme://www.$host$request_uri;
+}
+
 server {
     listen 80;
     ## SSL directives might go here
@@ -332,22 +349,21 @@ server {
         include        fastcgi_params; ## See /etc/nginx/fastcgi_params
     }
 }
-        </pre>
-    </article>
+        </textarea>
+    </div>
     <div class="term-container">
         <code class="term sudo">ln -s /etc/nginx/sites-available/magento /etc/nginx/sites-enabled/magento</code><hr class="separator" />
         <code class="term sudo">service nginx reload</code><hr class="separator" />
     </div>
 
-
-    <h2><a name="fedora">Setting up Fedora</a></h2>
+    <h3><a id="fedora">Setting up Fedora</a></h3>
     <div>Netbeans en Fedora: <a href="http://www.if-not-true-then-false.com/2010/install-netbeans-ide-7-0-on-fedora-centos-red-hat-rhel/
 " target="_blank">http://www.if-not-true-then-false.com/2010/install-netbeans-ide-7-0-on-fedora-centos-red-hat-rhel/
 </a></div>
     <code class="term">cp /usr/share/X11/xorg.conf.d/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf</code>
     <code class="term">sudo vi /etc/X11/xorg.conf.d/50-synaptics.conf</code>
-    <article class="vim">
-        <pre>
+    <div class="article vim">
+        <textarea class="pre">
 Section  "InputClass"
 Identifier  "touchpad catchall"
 
@@ -360,12 +376,12 @@ Option "RBCornerButton" "3"
 
 MatchDevicePath  "/dev/input/event*"
 EndSection
-        </pre>
-    </article>
+        </textarea>
+    </div>
     <code class="term">sudo yum install pysdm</code>
     <code class="term">sudo leafpad /etc/lxdm/lxdm.conf</code>
-    <article class="vim">
-        <pre>
+    <div class="article vim">
+        <textarea class="pre">
 ## uncomment and set to set numlock on your keyboard
 numlock=1
 sudo leafpad /etc/X11/xinit/xinitrc
@@ -374,22 +390,21 @@ sudo leafpad /etc/X11/xinit/xinitrc
 # Enabling NumLock from startx
 /usr/bin/numlockx on
 
-        </pre>
-    </article>
+        </textarea>
+    </div>
     <code class="term">sudo yum install httpd system-config-httpd mod_ssl mod_python php5 php5-xdebug php5-mysql php5-sqlite php5-mcrypt php5-imagick libapache2-mod-php5 php5-cgi php5-cli php5-common php5-curl php5-dev php5-gd mysql-server mysql-client curl</code>
     <code class="term">sudo yum install vim subversion git-core patch meld mysql-workbench libreoffice audacious pinta amarok gtkpod gimp</code>
     <code class="term">sudo yum install dropbox wine</code>
 </section>
 
-
 <section>
-    <h1><a name="utils">2. Tricks &amp; Tweaks</a></h1>
+    <h2><a id="utils">2. Tricks &amp; Tweaks</a></h2>
 
-    <h2>PHP error log</h2>
+    <h3>PHP error log</h3>
     <code class="term">tail -f /var/log/apache2/error.log</code>
 
 
-    <h2><a name="git">2.1 - Git</a></h2>
+    <h3><a id="git">2.1 - Git</a></h3>
     <ul>
         <li><a href="http://steveko.wordpress.com/2012/02/24/10-things-i-hate-about-git/" target="_blank" class="external">http://steveko.wordpress.com/2012/02/24/10-things-i-hate-about-git/</a></li>
     </ul>
@@ -398,7 +413,7 @@ sudo leafpad /etc/X11/xinit/xinitrc
         <code class="term">git clone git@github.com:micheeell/micheell.github.io.git .</code><hr class="separator" />
         <code class="term">git config core.filemode false</code>
     </div>
-    <h3><a name="git-br">2.1.1 - Branches</a></h3>
+    <h4><a id="git-br">2.1.1 - Branches</a></h4>
     <ul>
         <li>
             list remote branches (all branches including local: option="-a"):<br />
@@ -413,7 +428,7 @@ sudo leafpad /etc/X11/xinit/xinitrc
             <code class="term">git branch -d branch_to_remove</code>
         </li>
     </ul>
-    <h3><a name="git-misc">2.1.2 - Various Tricks</a></h3>
+    <h4><a id="git-misc">2.1.2 - Various Tricks</a></h4>
     <ul>
         <li>
             Git-ignore: ignore unversioned file by adding the filepath:<br />
@@ -431,7 +446,7 @@ sudo leafpad /etc/X11/xinit/xinitrc
             <code class="term">git reset HEAD~1</code>
         </li>
     </ul>
-    <h3><a name="git-commit">2.1.3 How-to Commit</a></h3>
+    <h4><a id="git-commit">2.1.3 How-to Commit</a></h4>
     <ol>
         <li>
             start with the correct branch ("release-2.8")<br />
@@ -465,11 +480,9 @@ sudo leafpad /etc/X11/xinit/xinitrc
         </li>
     </ol>
 
+    <h2><a id="docker">2.2 - Docker</a></h2>
 
-
-    <h1><a name="docker">2.2 - Docker</a></h1>
-
-    <h2><a name="docker-setup">2.2.1 - Setting up Docker</a></h2>
+    <h3><a id="docker-setup">2.2.1 - Setting up Docker</a></h3>
     <div><a href="http://docs.docker.io.s3-website-us-west-2.amazonaws.com/installation/ubuntulinux/">source</a></div>
     <div class="term-container">
         <code class="term">sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9</code><hr class="separator" />
@@ -481,7 +494,7 @@ sudo leafpad /etc/X11/xinit/xinitrc
         <code class="term">sudo service docker restart</code>
     </div>
 
-    <h2><a name="docker-launch">2.2.2 - First Launch</a></h2>
+    <h3><a id="docker-launch">2.2.2 - First Launch</a></h3>
     <div class="term-container">
         <code class="term">sudo docker pull sebaspo/lyracons-magento-base1</code><hr class="separator" />
         <code class="term">sudo docker run -i -t -v /home/www:/var/www -v /root/.ssh/authorized_keys:/root/.ssh/authorized_keys server /bin/bash</code><hr class="separator" />
@@ -491,14 +504,14 @@ sudo leafpad /etc/X11/xinit/xinitrc
             php5-memcache php-xml-serializer php-xml-parser php-soap php5-ldap php5-gd openssh-server</code>
     </div>
 
-    <h2><a name="docker-maintenance">2.2.3 - Maintenance</a></h2>
+    <h3><a id="docker-maintenance">2.2.3 - Maintenance</a></h3>
     <div class="term-container">
         <code class="term">sudo docker ps -a</code><hr class="separator" />
         <code class="term">sudo docker inspect [ID] | grep IPAddress</code><hr class="separator" />
         <code class="term">ssh root@172.17.0.2</code><hr class="separator" />
     </div>
 
-    <h2><a name="vim">2.3 - VIM</a></h2>
+    <h3><a id="vim">2.3 - VIM</a></h3>
     <a href="http://www.tuxfiles.org/linuxhelp/vimcheat.html" target="_blank" class="external">http://www.tuxfiles.org/linuxhelp/vimcheat.html</a>
     <div>
         <ul style="list-style-type:none; line-height:32px;">
@@ -514,8 +527,7 @@ sudo leafpad /etc/X11/xinit/xinitrc
         </ul>
     </div>
 
-
-    <h2><a name="mage">2.4 - Magento</a></h2>
+    <h3><a id="mage">2.4 - Magento</a></h3>
     <div class="term-container">
         <code class="term">rm -r var/session/*</code><hr class="separator" />
         <code class="term">rm -r var/cache/*</code><hr class="separator" />
@@ -563,7 +575,7 @@ UPDATE core_config_data
         <p class="mysql-cmd">UPDATE admin_user SET is_active = 1 WHERE username LIKE 'admin';</p>
     </div>
 
-    <h2><a name="certif">2.5 - self-signed certificates</a></h2>
+    <h3><a id="certif">2.5 - self-signed certificates</a></h3>
     <ul>
         <li><a href="http://www.akadia.com/services/ssh_test_certificate.html" target="_blank" class="external">http://www.akadia.com/services/ssh_test_certificate.html</a></li>
         <li><a href="https://www.digitalocean.com/community/articles/how-to-create-a-ssl-certificate-on-apache-for-ubuntu-12-04" target="_blank" class="external">https://www.digitalocean.com/community/articles/how-to-create-a-ssl-certificate-on-apache-for-ubuntu-12-04</a></li>
@@ -572,8 +584,8 @@ UPDATE core_config_data
         <code class="term">openssl genrsa -des3 -out local.key 1024</code><hr class="separator" />
         <code class="term">openssl req -new -key local.key -out local.csr</code>
     </div>
-    <article class="vim">
-        <pre>
+    <div class="article vim">
+        <textarea class="pre">
 Country Name (2 letter code) [AU]:AR
 State or Province Name (full name) [Some-State]:CABA
 Locality Name (eg, city) []:BsAs
@@ -581,8 +593,8 @@ Organization Name (eg, company) [Internet Widgits Pty Ltd]:Company
 Organizational Unit Name (eg, section) []:Developer
 Common Name (e.g. server FQDN or YOUR name) []:127.0.0.1
 Email Address []:email@company.com
-        </pre>
-    </article>
+        </textarea>
+    </div>
     &bull; remove passphrase:
     <div class="term-container">
         <code class="term">cp local.key local.key.tmp</code><hr class="separator" />
@@ -597,8 +609,8 @@ Email Address []:email@company.com
         <code class="term">sudo cp local.key /etc/apache2/ssl/</code><hr class="separator" />
         <code class="term">sudo vim /etc/apache2/sites-available/my-site</code>
     </div>
-    <article class="vim">
-    <pre>
+    <div class="article vim">
+    <textarea class="pre">
 <VirtualHost *:80>
     [...]
 </VirtualHost>
@@ -609,8 +621,8 @@ NameVirtualHost *:443
     SSLCertificateFile /etc/apache2/ssl/local.crt
     SSLCertificateKeyFile /etc/apache2/ssl/local.key
 </VirtualHost>
-        </pre>
-    </article>
+        </textarea>
+    </div>
     &bull; see documentation: /usr/share/doc/apache2.2-common/README.Debian
     <div class="term-container">
         <code class="term">sudo a2ensite default-ssl</code><hr class="separator" />
@@ -619,9 +631,9 @@ NameVirtualHost *:443
     </div>
 
 
-    <h2><a name="etc">2.6 - Various</a></h2>
+    <h3><a id="etc">2.6 - Various</a></h3>
     <ul>
-    <li><a name="file">2.6.1 - file &amp; directory management</a>
+    <li><a id="file">2.6.1 - file &amp; directory management</a>
         <div class="term-container">
             <code class="term sudo">find / -name NAME_TO_LOOK_FOR.EXT 2>/dev/null</code><hr class="separator" />
             <code class="term">ln -s /path/to/existing/folder /path/to/link</code><hr class="separator" />
@@ -631,8 +643,14 @@ NameVirtualHost *:443
             <code class="term">cat /dev/null > file_to_empty</code>
         </div>
     </li>
-    <li><a name="compress">2.6.2 - compression</a>
-        <ul><li><a name="zip">a) compress</a>
+    <li><a id="diskusage">2.6.2 - Disk usage &hyphen; space management</a>
+        <div class="term-container">
+            <code class="term">df -h</code><hr class="separator" />
+            <code class="term">du -sh /var/www/*</code>
+        </div>
+    </li>
+    <li><a id="compress">2.6.3 - compression</a>
+        <ul><li><a id="zip">a) compress</a>
             <div class="term-container">
                 <code class="term">bzip2 my_file_to_compress</code><hr class="separator" />
                 <code class="term">tar -zcvf /home/_dumps/my_dump.tar.gz /home/_dumps/dumpfile.sql</code><hr class="separator" />
@@ -647,7 +665,7 @@ NameVirtualHost *:443
                     src/app/design/frontend/base/default/template/pagosonline/form/debito.phtml</code><hr class="separator" />
                 <code class="term">tar cvf ~/Documents/linux.tar linux.php _css _img/_screens</code>
             </div>
-        </li><li><a name="unzip">b) uncompress</a>
+        </li><li><a id="unzip">b) uncompress</a>
             <div class="term-container">
                 <code class="term">bunzip2 my_file_to_decompress.bz2</code><hr class="separator" />
                 <code class="term">unzip FILE.ZIP -d /PATH/TO/DESTINATION</code><hr class="separator" />
@@ -655,13 +673,13 @@ NameVirtualHost *:443
             </div>
         </li></ul>
     </li>
-    <li><a name="sftp">2.6.3 - sftp - Secure copy</a><br />
+    <li><a id="sftp">2.6.4 - sftp - Secure copy</a><br />
     <code class="term">scp SSHUSER@DOMAIN:/server/path/to/file.tar.gz ~/LOCAL/DESTINATION/DIRECTORY</code>
     </li>
     </ul>
 
 
-    <h2><a name="off">3. Off-subject</a></h2>
+    <h3><a id="off">3. Off-subject</a></h3>
     <ul style="list-style-type:none; line-height:24px;">
         <li><a href="http://diveintohtml5.info/semantics.html" target="_blank" class="external">html5</a></li>
     </ul>
@@ -670,7 +688,7 @@ NameVirtualHost *:443
 </div></div>
 </section>
 
-<nav class="sphinxsidebar" role="navigation" aria-label="main navigation">
+<nav class="sphinxsidebar" aria-label="main navigation">
     <div class="sphinxsidebarwrapper">
     <ul>
         <li>
@@ -741,6 +759,7 @@ NameVirtualHost *:443
                     <a href="#etc"><h4>2.6) other</h4></a>
                     <ul>
                         <li><a href="#file">file management</a></li>
+                        <li><a href="#diskusage">disk usage</a></li>
                         <li><a href="#compress">compression</a></li>
                         <li><a href="#sftp">sftp</a></li>
                     </ul>
