@@ -89,7 +89,7 @@
     const validarCpf = () => {
       const regEx =  /^\d{11}$/i;
       const cpf = document.getElementById("cpf").value;
-      const cpfVal = cpf.replace(/-\./g, '').toLowerCase();
+      const cpfVal = cpf.replace(/[-\.]/g, '').toLowerCase();
       if (!regEx.test(cpfVal)) {
         alert("ALERTA: El CPF " + cpf + " no es válido, debe constar de 11 caracteres numéricos.");
         document.getElementById("cpf").focus();
