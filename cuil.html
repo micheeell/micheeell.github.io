@@ -14,26 +14,26 @@
     </style>
     <script type="text/javascript">
     const validarCuil = function validarCuilTodo() {
-        var cuil = document.getElementById("cuil").value;
+        const cuil = document.getElementById("cuil").value;
 
-        var regEx =  /^\d{11}$/;
-        var cuilVal = cuil.replace(/-/g, '');
+        const regEx =  /^\d{11}$/;
+        const cuilVal = cuil.replace(/-/g, '');
         if (regEx.test(cuilVal)) {
-            var prefix = cuilVal.charAt(0) + cuilVal.charAt(1);
+            const prefix = cuilVal.charAt(0) + cuilVal.charAt(1);
             if (['20', '23', '24', '27', '30', '33', '34'].indexOf(prefix) == -1) {
                 alert("El CUIL " + cuil + " NO es válido: debe empezar por 20, 23, 24, 27, 30, 33 o 34.");
                 return false;
             }
-            var factores = "6789456789";
-            var ultimoIndex = cuilVal.length - 1;
-            var sumaTotal = 0;
+            const factores = "6789456789";
+            const ultimoIndex = cuilVal.length - 1;
+            let sumaTotal = 0;
             for (var i = 0; i < ultimoIndex; i++) {
                 sumaTotal += (parseInt(cuilVal.charAt(i)) * parseInt(factores.charAt(i)));
             }
-            var residuo = sumaTotal %11;
-            var ultimoDigitoCalc = (residuo == 10) ? 0 : residuo;
+            const residuo = sumaTotal %11;
+            const ultimoDigitoCalc = (residuo == 10) ? 0 : residuo;
 
-            var ultimoDigitoCuil = parseInt(cuilVal.charAt(ultimoIndex));
+            const ultimoDigitoCuil = parseInt(cuilVal.charAt(ultimoIndex));
 
             if (ultimoDigitoCuil == ultimoDigitoCalc) {
                 alert("SÍ, el CUIL " + cuil + " es válido.");
@@ -46,16 +46,16 @@
         }
     };
     const validarRut = function validarRutTodo() {
-        var regEx =  /^\d{2,11}k?$/i;
-        var rut = document.getElementById("rut").value;
-        var rutVal = rut.replace(/-/g, '').toLowerCase();
+        const regEx =  /^\d{2,11}k?$/i;
+        const rut = document.getElementById("rut").value;
+        const rutVal = rut.replace(/-/g, '').toLowerCase();
         if (!regEx.test(rutVal)) {
             alert("ALERTA: El RUT " + rut + " no es válido, debe constar de 6 a 11 caracteres numéricos.");
             document.getElementById("rut").focus();
             return false;
         }
-        var core = rutVal.slice(0, -1);
-        var dv = rutVal.substr(rutVal.length - 1),
+        const core = rutVal.slice(0, -1);
+        const dv = rutVal.substring(rutVal.length - 1),
             ultimoDigitoCalc = getRutDigitoVerificador(core);
         if (ultimoDigitoCalc == dv) {
             alert("SÍ, el RUT " + rut + " es válido.");
@@ -66,10 +66,10 @@
         }
     };
     const getRutDigitoVerificador = function getDigito(rut) {
-        var rutlength = rut.length,
-            suma = 0,
+        const rutlength = rut.length;
+        let suma = 0,
             mul  = 2;
-        for (var i = 0; i < rutlength; i++) {
+        for (let i = 0; i < rutlength; i++) {
             suma += rut.charAt(rutlength - 1 - i) * mul;
             if (mul === 7) {
                 mul = 2;
@@ -77,7 +77,7 @@
                 mul++;
             }
         }
-        var res = suma %11;
+        let res = suma %11;
         if (res === 1) {
             return 'k';
         } else if (res === 0) {
@@ -85,6 +85,45 @@
         } else {
             return 11-res;
         }
+    }
+    const validarCPF = () => {
+      const regEx =  /^\d{11}$/i;
+      const cpf = document.getElementById("cpf").value;
+      const cpfVal = rut.replace(/-/g, '').toLowerCase();
+      if (!regEx.test(cpfVal)) {
+        alert("ALERTA: El CPF " + cpf + " no es válido, debe constar de 11 caracteres numéricos.");
+        document.getElementById("cpf").focus();
+        return false;
+      }
+      let suma = 0;
+
+      for (let i = 1; i <= 9; i++) {
+        suma += parseInt(cpfVal.substring(i - 1, i)) * (11 - i);
+      }
+      let resto = (suma * 10) %11;
+
+      if (resto > 9) resto = 0;
+      if (resto != parseInt(cpfVal.substring(9, 10)) ) {
+        alert(`ALERTA: El CPF ${cpf} no es válido, el anteúltimo dígito debería ser ${resto} en lugar de ${cpfVal.substring(9, 10)}.`);
+        document.getElementById("cpf").focus();
+        return false;
+      }
+
+      suma = 0;
+      for (let i = 1; i <= 10; i++) {
+        suma += parseInt(cpfVal.substring(i - 1, i)) * (12 - i);
+      }
+      resto = (suma * 10) %11;
+
+      if (resto > 9) resto = 0;
+      if (resto != parseInt(cpfVal.substring(10, 11)) ) {
+        alert(`ALERTA: El CPF ${cpf} no es válido, el último dígito debería ser ${resto} en lugar de ${cpfVal.substring(10, 11)}.`);
+        document.getElementById("cpf").focus();
+        return false;
+      }
+
+      alert("SÍ, el CPF " + cpf + " es válido.");
+      return true;
     }
     </script>
 </head>
@@ -119,6 +158,20 @@
 <div class="row">
     <p class="msg">*Esto sólo verifica si el RUT es válido, NO si se encuentra registrado &amp; vigente.</p>
     <p class="more">M&aacute;s informaci&oacute;n en <a href="http://cauditor2.blogspot.com.ar/2009/09/modulo-11-o-validador-de-rut.html">este post de blog sobre la validación</a> y <a href="http://jqueryrut.sourceforge.net/generador-de-ruts-chilenos-validos.html">este generador de RUTs v&aacute;lidos</a></p>
+</div>
+<div class="title">
+    <h1>VALIDADOR CPF (Cadastro das Pessoas Fisicas</h1>
+</div>
+<div class="row">
+    <div class="row-col">
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" name="cpf" />
+    </div>
+    <input type="button" class="row-col" value="Validar CPF" onclick="validarCpf();" />
+</div>
+<div class="row">
+    <p class="msg">*Esto sólo verifica si el CPF es válido, NO si se encuentra registrado &amp; vigente.</p>
+    <p class="more">M&aacute;s informaci&oacute;n en <a href="https://www.gov.br/mre/pt-br/embaixada-mexico/cpf-registro-de-persona-fisica-informaciones-en-espanol">esta página oficial</a>.
 </div>
 <div>
     <p class="msg">Mirá el <a href="https://github.com/micheeell/micheeell.github.io/blob/master/cuil.html">código</a> en <a href="https://github.com/" target="_blank">github</a>.</p>
