@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Validador CUIL</title>
-    <meta name="description" content="Un validador en javascript para generar y testear números de CUIL, y también de RUT para vos <3nico<3">
+    <meta name="description" content="Un validador en javascript para testear (y generar) números de CUIL, y también de RUT, y de CPF ya que estamos">
     <link rel="stylesheet" href="styles/masking-input.css"/>
     <style type="text/css">
         .row { float: none; display: block; clear: both; }
@@ -16,11 +16,11 @@
     const validarCuil = function validarCuilTodo() {
         const cuil = document.getElementById("cuil").value;
 
-        const regEx =  /^\d{11}$/;
+        const regEx = /^\d{11}$/;
         const cuilVal = cuil.replace(/-/g, '');
         if (regEx.test(cuilVal)) {
             const prefix = cuilVal.charAt(0) + cuilVal.charAt(1);
-            if (['20', '23', '24', '27', '30', '33', '34'].indexOf(prefix) == -1) {
+            if (['20', '23', '24', '27', '30', '33', '34'].indexOf(prefix) === -1) {
                 alert("El CUIL " + cuil + " NO es válido: debe empezar por 20, 23, 24, 27, 30, 33 o 34.");
                 return false;
             }
@@ -31,11 +31,11 @@
                 sumaTotal += (parseInt(cuilVal.charAt(i)) * parseInt(factores.charAt(i)));
             }
             const residuo = sumaTotal %11;
-            const ultimoDigitoCalc = (residuo == 10) ? 0 : residuo;
+            const ultimoDigitoCalc = (residuo === 10) ? 0 : residuo;
 
             const ultimoDigitoCuil = parseInt(cuilVal.charAt(ultimoIndex));
 
-            if (ultimoDigitoCuil == ultimoDigitoCalc) {
+            if (ultimoDigitoCuil === ultimoDigitoCalc) {
                 alert("SÍ, el CUIL " + cuil + " es válido.");
             } else {
                 alert("¡ALERTA: El CUIL " + cuil + " NO es válido! Debe terminar por " + ultimoDigitoCalc + ".");
@@ -46,7 +46,7 @@
         }
     };
     const validarRut = function validarRutTodo() {
-        const regEx =  /^\d{2,11}k?$/i;
+        const regEx = /^\d{2,11}k?$/i;
         const rut = document.getElementById("rut").value;
         const rutVal = rut.replace(/-/g, '').toLowerCase();
         if (!regEx.test(rutVal)) {
@@ -57,7 +57,7 @@
         const core = rutVal.slice(0, -1);
         const dv = rutVal.substring(rutVal.length - 1),
             ultimoDigitoCalc = getRutDigitoVerificador(core);
-        if (ultimoDigitoCalc == dv) {
+        if (ultimoDigitoCalc === dv) {
             alert("SÍ, el RUT " + rut + " es válido.");
             return true;
         } else {
@@ -87,9 +87,9 @@
         }
     }
     const validarCpf = () => {
-      const regEx =  /^\d{11}$/i;
+      const regEx = /^\d{11}$/i;
       const cpf = document.getElementById("cpf").value;
-      const cpfVal = cpf.replace(/[-\.]/g, '').toLowerCase();
+      const cpfVal = cpf.replace(/[-.]/g, '').toLowerCase();
       if (!regEx.test(cpfVal)) {
         alert("ALERTA: El CPF " + cpf + " no es válido, debe constar de 11 caracteres numéricos.");
         document.getElementById("cpf").focus();
@@ -103,7 +103,7 @@
       let resto = (suma * 10) %11;
 
       if (resto > 9) resto = 0;
-      if (resto != parseInt(cpfVal.substring(9, 10)) ) {
+      if (resto !== parseInt(cpfVal.substring(9, 10)) ) {
         alert(`ALERTA: El CPF ${cpf} no es válido, el anteúltimo dígito debería ser ${resto} en lugar de ${cpfVal.substring(9, 10)}.`);
         document.getElementById("cpf").focus();
         return false;
@@ -116,7 +116,7 @@
       resto = (suma * 10) %11;
 
       if (resto > 9) resto = 0;
-      if (resto != parseInt(cpfVal.substring(10, 11)) ) {
+      if (resto !== parseInt(cpfVal.substring(10, 11)) ) {
         alert(`ALERTA: El CPF ${cpf} no es válido, el último dígito debería ser ${resto} en lugar de ${cpfVal.substring(10, 11)}.`);
         document.getElementById("cpf").focus();
         return false;
@@ -143,6 +143,7 @@
 </div>
 <div id="contenedorMensaje" class="row"></div>
 <div class="row">
+    <p class="more">El CUIL es el C&oacute;digo &Uacute;nico de Identificaci&oacute;n Laboral en <a href="https://es.wikipedia.org/wiki/C%C3%B3digo_%C3%9Anico_de_Identificaci%C3%B3n_Laboral">uso en la Rep&uacute;blica Argentina</a>.</p>
     <p class="msg">*Esto s&oacute;lo verifica si el CUIL es v&aacute;lido, NO si se encuentra registrado &amp; vigente.</p>
 </div>
 <div class="title">
@@ -156,11 +157,12 @@
     <input type="button" class="row-col" value="Validar RUT" onclick="validarRut();" />
 </div>
 <div class="row">
+    <p class="more">El RUT es el Rol &Uacute;nico Tributario en <a href="https://es.wikipedia.org/wiki/Rol_%C3%9Anico_Tributario">uso en Chile</a>.</p>
     <p class="msg">*Esto s&oacute;lo verifica si el RUT es v&aacute;lido, NO si se encuentra registrado &amp; vigente.</p>
     <p class="more">M&aacute;s informaci&oacute;n en <a href="http://cauditor2.blogspot.com.ar/2009/09/modulo-11-o-validador-de-rut.html">este post de blog sobre la validaci&oacute;n</a> y <a href="http://jqueryrut.sourceforge.net/generador-de-ruts-chilenos-validos.html">este generador de RUTs v&aacute;lidos</a></p>
 </div>
 <div class="title">
-    <h1>VALIDADOR CPF (Cadastro de Pessoas F&iacute;sicas)</h1>
+    <h1>VALIDADOR CPF</h1>
 </div>
 <div class="row">
     <div class="row-col">
@@ -170,6 +172,7 @@
     <input type="button" class="row-col" value="Validar CPF" onclick="validarCpf();" />
 </div>
 <div class="row">
+    <p class="more">El CPF es el Cadastro de Pessoas F&iacute;sicas o, en espa&ntilde;ol, el <i>Registro de Personas Físicas</i> en <a href="https://en.wikipedia.org/wiki/CPF_number">uso en Brasil</a>.</p>
     <p class="msg">*Esto sólo verifica si el CPF es válido, NO si se encuentra registrado &amp; vigente.</p>
     <p class="more">M&aacute;s informaci&oacute;n en <a href="https://www.gov.br/mre/pt-br/embaixada-mexico/cpf-registro-de-persona-fisica-informaciones-en-espanol">esta p&aacute;gina oficial</a>.
 </div>
