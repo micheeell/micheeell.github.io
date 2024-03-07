@@ -86,10 +86,10 @@
             return 11-res;
         }
     }
-    const validarCPF = () => {
+    const validarCpf = () => {
       const regEx =  /^\d{11}$/i;
       const cpf = document.getElementById("cpf").value;
-      const cpfVal = rut.replace(/-/g, '').toLowerCase();
+      const cpfVal = cpf.replace(/-\./g, '').toLowerCase();
       if (!regEx.test(cpfVal)) {
         alert("ALERTA: El CPF " + cpf + " no es válido, debe constar de 11 caracteres numéricos.");
         document.getElementById("cpf").focus();
@@ -143,7 +143,7 @@
 </div>
 <div id="contenedorMensaje" class="row"></div>
 <div class="row">
-    <p class="msg">*Esto sólo verifica si el CUIL es válido, NO si se encuentra registrado &amp; vigente.</p>
+    <p class="msg">*Esto s&oacute;lo verifica si el CUIL es v&aacute;lido, NO si se encuentra registrado &amp; vigente.</p>
 </div>
 <div class="title">
     <h1>VALIDADOR RUT</h1>
@@ -156,11 +156,11 @@
     <input type="button" class="row-col" value="Validar RUT" onclick="validarRut();" />
 </div>
 <div class="row">
-    <p class="msg">*Esto sólo verifica si el RUT es válido, NO si se encuentra registrado &amp; vigente.</p>
-    <p class="more">M&aacute;s informaci&oacute;n en <a href="http://cauditor2.blogspot.com.ar/2009/09/modulo-11-o-validador-de-rut.html">este post de blog sobre la validación</a> y <a href="http://jqueryrut.sourceforge.net/generador-de-ruts-chilenos-validos.html">este generador de RUTs v&aacute;lidos</a></p>
+    <p class="msg">*Esto s&oacute;lo verifica si el RUT es v&aacute;lido, NO si se encuentra registrado &amp; vigente.</p>
+    <p class="more">M&aacute;s informaci&oacute;n en <a href="http://cauditor2.blogspot.com.ar/2009/09/modulo-11-o-validador-de-rut.html">este post de blog sobre la validaci&oacute;n</a> y <a href="http://jqueryrut.sourceforge.net/generador-de-ruts-chilenos-validos.html">este generador de RUTs v&aacute;lidos</a></p>
 </div>
 <div class="title">
-    <h1>VALIDADOR CPF (Cadastro das Pessoas Fisicas</h1>
+    <h1>VALIDADOR CPF (Cadastro de Pessoas F&iacute;sicas)</h1>
 </div>
 <div class="row">
     <div class="row-col">
@@ -171,10 +171,10 @@
 </div>
 <div class="row">
     <p class="msg">*Esto sólo verifica si el CPF es válido, NO si se encuentra registrado &amp; vigente.</p>
-    <p class="more">M&aacute;s informaci&oacute;n en <a href="https://www.gov.br/mre/pt-br/embaixada-mexico/cpf-registro-de-persona-fisica-informaciones-en-espanol">esta página oficial</a>.
+    <p class="more">M&aacute;s informaci&oacute;n en <a href="https://www.gov.br/mre/pt-br/embaixada-mexico/cpf-registro-de-persona-fisica-informaciones-en-espanol">esta p&aacute;gina oficial</a>.
 </div>
 <div>
-    <p class="msg">Mirá el <a href="https://github.com/micheeell/micheeell.github.io/blob/master/cuil.html">código</a> en <a href="https://github.com/" target="_blank">github</a>.</p>
+    <p class="msg">Mir&aacute; el <a href="https://github.com/micheeell/micheeell.github.io/blob/master/cuil.html">c&oacute;digo</a> en <a href="https://github.com/" target="_blank">github</a>.</p>
 </div>
 <script src="javascript/masking-input.js" data-autoinit="true"></script>
 </body>
